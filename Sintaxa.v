@@ -143,7 +143,7 @@ Inductive Stmt :=
 | vec_bools : Var -> nat -> Stmt
 | vec_access : Var -> nat -> Stmt
 | function_call : Var -> list Val -> Stmt
-| function_definition : Var -> nat -> Stmt -> Stmt
+| function_definition : Var -> list Val -> Stmt -> Stmt
 | class' : Var -> Stmt -> Stmt
 | object_declaration : Var -> Var -> Stmt
 | class_var_access : Var -> Var -> Stmt
