@@ -17,6 +17,7 @@ Compute undefined.
 Compute num 3.
 Coercion num : nat >-> Val.
 Coercion boolean : bool >-> Val.
+
 Definition Env := Var -> Val.
 Definition env1 : Env :=
   fun x =>
@@ -146,7 +147,7 @@ Inductive Stmt :=
 | vec_bools : Var -> nat -> Stmt
 | vec_access : Var -> nat -> Stmt
 | function_call : Var -> list Val -> Stmt
-| function_definition : Var -> list iVal -> Stmt -> Stmt
+| function_definition : Var -> iVal -> Stmt -> Stmt
 | class' : Var -> Stmt -> Stmt
 | object_declaration : Var -> Var -> Stmt
 | class_var_access : Var -> Var -> Stmt
@@ -178,5 +179,11 @@ Notation "'bool' B [[ i ]] " := ( vec_bools B i )(at level 50).
 Notation "V [[ i ]] " := ( vec_access V i )(at level 50).
 Notation "f (( Vars ))" :=( function_call f Vars ) (at level 50).
 Check ( "F"((nil)) ).
-Notation "f ((
+Notation "f (( iVars )) {{ S }}" :=( function_definition f iVars S ) ( at level 50).
+Notation " 'class' Name {{ S }} " :=( class' Name S ) ( at level 50).
+Notation " 'def' ObjName Class " := ( object_declaration ObjName Class ) ( at level 50).
+Notation " x 'in' ObjName " := ( class_var_access ObjName x) ( at level 50).
+Check ( "Var" in "clasa").
+Notation " f (( Vars )) 'in' Class " := ( class_method_call Class f Vars ) ( at level 50 ).
+Check ( "f"((cons (num 3) nil)) in "Class").
 
